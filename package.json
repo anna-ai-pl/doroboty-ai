@@ -53,7 +53,7 @@
     "globals": "^16.0.0"
   },
   "engines": {
-    "node": ">=24 <27"
+    "node": "24.x"
   },
   "type": "module"
 }

@@ -34,3 +34,7 @@ Added explicit Vite/dist configuration and a separate deployment smoke workflow.
 Vercel MCP authentication identifies the intended account, but team access returned 403 for Ania. A team consent link has been presented. Do not bypass this grant through a different credential or create a project in another team. Publication is pending authorization; no production URL exists for this quest yet.
 
 The generated readiness HTML is excluded from Prettier to preserve its embedded state and history. This is an initial assessment, not a completed readiness verdict. No source UI or application behavior was changed. FEATURES.md does not require a behavior update.
+
+## Build configuration correction
+
+Vercel build logs showed package.json engines >=24 <27 overriding the project's Node 24 setting and selecting Node 26. Pin the runtime requirement to 24.x in package.json and the lockfile root so CI and deployment use the course-required major version. No dependency versions or UI behavior changed. The team access grant is now working; the isolated project exists.
