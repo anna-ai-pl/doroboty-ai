@@ -24,3 +24,13 @@ Publish an isolated educational copy on Vercel, then verify an anonymous HTTPS j
 ## Next
 
 Verify CLI authentication; run browser suite in CI; perform production-readiness for this fork; configure and deploy an isolated Vercel project; exercise the actual public URL. Never copy tokens into this document.
+
+## Verified before publication
+
+GitHub Actions run https://github.com/anna-ai-pl/doroboty-ai/actions/runs/44185479510 passed the full gate: 27 unit tests and 34 Chromium tests, plus formatting, lint, types, build and packet checks. Production dependency audit reported zero known advisories. Local browser absence was resolved by CI, not reported as an application failure.
+
+Added explicit Vite/dist configuration and a separate deployment smoke workflow. It accepts an HTTPS URL through an environment variable, uses a fresh browser context without Vercel credentials, submits a synthetic application and records an employer decision, then checks persistence and mobile layout. It has not yet run against a deployed URL.
+
+Vercel MCP authentication identifies the intended account, but team access returned 403 for Ania. A team consent link has been presented. Do not bypass this grant through a different credential or create a project in another team. Publication is pending authorization; no production URL exists for this quest yet.
+
+The generated readiness HTML is excluded from Prettier to preserve its embedded state and history. This is an initial assessment, not a completed readiness verdict. No source UI or application behavior was changed. FEATURES.md does not require a behavior update.

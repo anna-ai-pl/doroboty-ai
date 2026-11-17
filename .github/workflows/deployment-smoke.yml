@@ -1,0 +1,32 @@
+name: Deployment smoke
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Public HTTPS deployment URL
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm exec playwright install --with-deps chromium
+      - run: npx playwright test --config playwright.deployment.config.ts
+        env:
+          Q42_URL: ${{ inputs.url }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: q42-public-flow
+          path: |
+            artifacts/q42-*.png
+            test-results/
