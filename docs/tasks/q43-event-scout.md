@@ -23,3 +23,11 @@ Sources checked 2026-11-18: https://posthog.com/docs/libraries/js/config and htt
 2026-11-18: separate review checked the production-origin gate, CSS selector restriction, private-route rejection, query stripping, explicit property allowlist, disabled replay/person profiles, and the public privacy explanation. No visual composition or scenario flow was changed. The project token is configured in Vercel production only; it is a public ingestion credential, not a private API key.
 
 Local formatting, design-system integrity, lint, typecheck, 34 unit tests, baseline-packet verification and build passed. Local browser tests could not launch because Playwright Chromium is not installed; GitHub Actions must run the full gate before release. Receiving-project verification is still pending.
+
+## First production smoke and correction
+
+CI 44283851961 passed 34 unit and 34 browser tests. Production deployment of 3ff5d51 became READY. Smoke 44284315588 preserved the application journey but analytics failed: the trace explicitly showed SDK bot filtering of the automated browser. The correction permits capture only for navigator.webdriver automation and marks verification_traffic; other bot filtering remains on. The test is technical automation, not a human-user research result.
+
+Review of current SDK defaults also found automatic URL hash stripping. Explicit disable_capture_url_hashes: false preserves hashes until before_send rejects private routes and replaces the accepted homepage URL. This prevents private route pageviews from being mislabeled as homepage visits.
+
+Documentation: https://posthog.com/docs/web-analytics/troubleshooting and https://posthog.com/docs/references/posthog-js/types/PostHogConfig (checked 2026-11-18).

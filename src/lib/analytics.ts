@@ -21,8 +21,17 @@ export function filterAnalyticsEvent(event: CaptureResult | null): CaptureResult
     $current_url: `${ANALYTICS_ORIGIN}/#/`,
     $pathname: "/",
     $process_person_profile: false,
+    verification_traffic: typeof navigator !== "undefined" && navigator.webdriver === true,
   };
-  for (const key of ["token", "distinct_id", "$session_id", "$window_id", "$lib", "$lib_version"]) {
+  for (const key of [
+    "token",
+    "distinct_id",
+    "$session_id",
+    "$window_id",
+    "$lib",
+    "$lib_version",
+    "$browser_type",
+  ]) {
     if (typeof event.properties[key] === "string") properties[key] = event.properties[key];
   }
   if (event.event === "$autocapture") {
@@ -40,6 +49,10 @@ export function initializeAnalytics() {
   posthog.init(token, {
     api_host: host,
     defaults: "2026-08-30",
+    // Keep the hash until our filter rejects private routes and canonicalizes the homepage.
+    disable_capture_url_hashes: false,
+    // Permit explicitly automated browser verification; preserve its bot classification.
+    opt_out_useragent_filter: navigator.webdriver === true,
     autocapture: {
       dom_event_allowlist: ["click"],
       css_selector_allowlist: ['[data-ph-capture="q43-view-offers"]'],
