@@ -31,3 +31,5 @@ CI 44283851961 passed 34 unit and 34 browser tests. Production deployment of 3ff
 Review of current SDK defaults also found automatic URL hash stripping. Explicit disable_capture_url_hashes: false preserves hashes until before_send rejects private routes and replaces the accepted homepage URL. This prevents private route pageviews from being mislabeled as homepage visits.
 
 Documentation: https://posthog.com/docs/web-analytics/troubleshooting and https://posthog.com/docs/references/posthog-js/types/PostHogConfig (checked 2026-11-18).
+
+Smoke 44284776158 ran before the corrected deployment was READY and is not evidence about the new bundle. Smoke 44285115189 received a real pageview (confirmed in PostHog), but its request assertion watched /i/ only. The trace showed HTTP 200 at the SDK's /e/ endpoint. Correct the test matcher to accept both ingestion paths; this is a test-harness fix, not a reason to synthesize analytics events.

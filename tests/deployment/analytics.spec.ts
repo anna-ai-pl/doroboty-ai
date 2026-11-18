@@ -5,7 +5,10 @@ test("public homepage sends SDK analytics and CTA stays functional", async ({ pa
   const received: number[] = [];
   page.on("response", (response) => {
     const url = new URL(response.url());
-    if (url.hostname === "eu.i.posthog.com" && url.pathname.startsWith("/i/")) {
+    if (
+      url.hostname === "eu.i.posthog.com" &&
+      ["/i/", "/e/"].some((path) => url.pathname.startsWith(path))
+    ) {
       received.push(response.status());
     }
   });
