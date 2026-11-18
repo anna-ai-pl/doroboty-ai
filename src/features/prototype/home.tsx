@@ -47,7 +47,11 @@ export default function HomePage() {
               pracy — nie dopiskiem w employer brandingu.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/oferty" className={buttonVariants({ size: "lg" })}>
+              <Link
+                data-ph-capture="q43-view-offers"
+                to="/oferty"
+                className={buttonVariants({ size: "lg" })}
+              >
                 Zobacz oferty <ArrowRight />
               </Link>
               <Link

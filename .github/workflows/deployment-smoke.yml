@@ -6,6 +6,10 @@ on:
         description: Public HTTPS deployment URL
         required: true
         type: string
+      analytics:
+        description: Verify configured PostHog homepage events
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -23,10 +27,12 @@ jobs:
       - run: npx playwright test --config playwright.deployment.config.ts
         env:
           Q42_URL: ${{ inputs.url }}
+          Q43_ANALYTICS: ${{ inputs.analytics && '1' || '0' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: q42-public-flow
           path: |
             artifacts/q42-*.png
+            artifacts/q43-*.png
             test-results/

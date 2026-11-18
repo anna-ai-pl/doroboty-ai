@@ -88,3 +88,7 @@ Stable IDs are retained, including explicit removed entries. The legacy duplicat
 ## Current implementation limits
 
 No real login, email, binary upload, production CVs, provider AI, confidential roles, backend, collaboration across devices, cloud analytics or live experiment measurement. A static URL shares code, not local state; exported JSON contains the entire scenario. Human testing, publishing, CI results and course approval must be verified separately.
+
+## Course analytics exception (ANA-01)
+
+On the configured production origin only, optional PostHog analytics sends the homepage pageview and the marked “Zobacz oferty” CTA click. No form content, scenario data, query strings, private hash routes, identification or session replay is sent. Anonymous identifiers remain in memory. Without both Vite environment values the SDK is not initialized. This is an explicit exception to the original offline/no-external-requests baseline; local assets and scenario storage are unchanged. Source: `src/lib/analytics.ts`; tests: `src/lib/analytics.test.ts`; evidence: `docs/tasks/q43-event-scout.md`.

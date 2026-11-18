@@ -130,7 +130,10 @@ export function PrivacyPage() {
         </p>
         <p>
           Możesz usunąć zmiany przyciskiem „Resetuj scenariusz” w ustawieniach lub wyczyścić dane
-          witryny w przeglądarce. Hosting może prowadzić własne logi dostępu.
+          witryny w przeglądarce. Hosting może prowadzić własne logi dostępu. Na opublikowanej
+          stronie kursowej PostHog rejestruje wejście na stronę główną i kliknięcie „Zobacz oferty”.
+          Nie przekazujemy treści formularzy ani nie nagrywamy sesji. Identyfikator pomiaru
+          pozostaje tylko w pamięci karty.
         </p>
       </div>
     </section>
