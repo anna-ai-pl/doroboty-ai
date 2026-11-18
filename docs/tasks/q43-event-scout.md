@@ -33,3 +33,25 @@ Review of current SDK defaults also found automatic URL hash stripping. Explicit
 Documentation: https://posthog.com/docs/web-analytics/troubleshooting and https://posthog.com/docs/references/posthog-js/types/PostHogConfig (checked 2026-11-18).
 
 Smoke 44284776158 ran before the corrected deployment was READY and is not evidence about the new bundle. Smoke 44285115189 received a real pageview (confirmed in PostHog), but its request assertion watched /i/ only. The trace showed HTTP 200 at the SDK's /e/ endpoint. Correct the test matcher to accept both ingestion paths; this is a test-harness fix, not a reason to synthesize analytics events.
+
+## Final receiving-project verification — 2026-11-18
+
+- Full gate: https://github.com/anna-ai-pl/doroboty-ai/actions/runs/44285424331 — success (34 unit + 34 browser tests).
+- Public smoke: https://github.com/anna-ai-pl/doroboty-ai/actions/runs/44285424339 — success, both analytics and candidate/employer journey (2 tests).
+- Runtime source: 050680a55860875797a33f34ef60d88c03d7cba0; test-harness correction: 72d1ba8a9a1969aa411d7571628fcced8a770e36. Later documentation commits do not change the app bundle.
+- Public screenshot: `docs/evidence/q43/homepage.png`; visually reviewed, homepage CTA visible and unobstructed.
+- PostHog EU project 355804 was queried through the connected plugin after schema inspection. Both events below were actually received, not manually inserted.
+- `$pageview`: UUID `01a1ee32-0660-7de3-b9b9-32449316a5f5`, timestamp `2026-11-18T10:26:58.518Z`.
+- `$autocapture`: UUID `01a1ee32-08f9-78f7-b462-0f08b4b2c4bd`, timestamp `2026-11-18T10:26:58.989Z`; `$event_type=click`, `button_name=Zobacz oferty`.
+- Both URLs: `https://doroboty-ai-q42.vercel.app/#/`. Warsaw time: **18 November 2026, 11:26:58 CET**.
+- `verification_traffic=true`: these are real browser/SDK requests from an automated technical test. They are not evidence that Anna personally clicked or that a real customer used the product.
+- PostHog may enrich received events with approximate GeoIP metadata; no claim of zero hosting/collector metadata is made. The app property filter excludes scenario content and precise route data; it is not an audit of the provider's entire processing pipeline.
+- Questlog submission remains Anna's action. No dashboard/funnel was added: neither is required by this quest.
+
+## Ready submission (Polish)
+
+Wariant ćwiczeniowy: moja kopia DoRoboty.ai.
+Adres produkcyjny: https://doroboty-ai-q42.vercel.app/
+Przycisk: „Zobacz oferty”.
+Test: 18.11.2026, godz. 11:26:58 (Europe/Warsaw).
+W PostHogu, w projekcie „Default project” (ID 355804), potwierdzono dwa zdarzenia z adresu https://doroboty-ai-q42.vercel.app/#/: Pageview ($pageview) i Autocapture ($autocapture, click, button_name: Zobacz oferty). Wejście i kliknięcie wykonał automatyczny test przeglądarkowy agenta na publicznym adresie; odbiór obu zdarzeń sprawdzono w danych PostHoga. Autocapture jest ograniczony do wskazanego przycisku; formularze, CV i notatki są pomijane.
